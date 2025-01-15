@@ -10,7 +10,7 @@ class HipopayIntegration
     protected string $userEmail;
     protected string $username;
     protected array $commissionTypes = [1, 2, 3];
-    protected array $product;
+    protected array $product = [];
 
     public function setApiKey(string $apiKey): void
     {
@@ -51,6 +51,7 @@ class HipopayIntegration
             'email' => $this->userEmail,
             'username' => $this->username,
             'ip_address' => $this->getClientIpAddress(),
+            'pro' => count($this->product) > 0,
             'hash' => base64_encode(
                 hash_hmac('sha256',$this->userId.$this->userEmail.$this->username.$this->apiKey,$this->apiSecret ,true)
             )
