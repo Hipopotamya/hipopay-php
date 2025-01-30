@@ -121,11 +121,14 @@ class HipopayIntegration
 
     public function getIpnStatusIsSuccess(): bool
     {
+        $jsonData = file_get_contents('php://input');
+        $data = json_decode($jsonData, true);
+
         $hash = base64_encode(
-            hash_hmac('sha256',$_POST["transaction_id "].$_POST["user_id"].$_POST["email"].$_POST["name"].$_POST["status"].$this->apiKey,$this->apiSecret ,true)
+            hash_hmac('sha256',$data["transaction_id "].$data["user_id"].$data["email"].$data["name"].$data["status"].$this->apiKey,$this->apiSecret ,true)
         );
 
-        return $hash === $_POST["hash"];
+        return $hash === $data["hash"];
     }
 
     public function getClientIpAddress()
