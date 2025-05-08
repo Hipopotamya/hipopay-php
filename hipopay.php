@@ -125,7 +125,7 @@ class HipopayIntegration
         $data = json_decode($jsonData, true);
 
         $hash = base64_encode(
-            hash_hmac('sha256',$data["transaction_id "].$data["user_id"].$data["email"].$data["name"].$data["status"].$this->apiKey,$this->apiSecret ,true)
+            hash_hmac('sha256',$data["transaction_id"].$data["user_id"].$data["email"].$data["name"].$data["status"].$this->apiKey,$this->apiSecret ,true)
         );
 
         return $hash === $data["hash"];
